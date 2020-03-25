@@ -1,0 +1,3 @@
+rootProject.name='MediaLibrary_Android'
+include ':app'
+include ':Media'
