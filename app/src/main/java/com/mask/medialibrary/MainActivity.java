@@ -1,7 +1,6 @@
 package com.mask.medialibrary;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -32,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     private MediaInfo sourceInfo;
     private MediaInfo targetInfo;
-
-    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +124,10 @@ public class MainActivity extends AppCompatActivity {
         int height = getEditTextValue(edt_height);
         FFmpegUtils.crop(sourceFile.getAbsolutePath(), targetFile.getAbsolutePath(), startX, startY, width, height, sourceInfo, new FFmpegProgressListener() {
             @Override
-            public void onProgressUpdate(final int progress, final long timeRemaining) {
-                handler.post(new Runnable() {
+            public void onProgress(final int progress, final long timeRemaining) {
+                super.onProgress(progress, timeRemaining);
+
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (!TextUtils.isEmpty(tv_progress.getText())) {
@@ -138,14 +137,20 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
-        handler.postDelayed(new Runnable() {
+
             @Override
-            public void run() {
-                btn_crop_start.setEnabled(true);
-                targetInfo = FFmpegUtils.getMediaInfo(targetFile.getAbsolutePath());
-                tv_target_info.setText("Target: " + getMediaInfo(targetInfo, targetFile));
+            public void onSuccess() {
+                super.onSuccess();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        btn_crop_start.setEnabled(true);
+                        targetInfo = FFmpegUtils.getMediaInfo(targetFile.getAbsolutePath());
+                        tv_target_info.setText("Target: " + getMediaInfo(targetInfo, targetFile));
+                    }
+                });
             }
-        }, 1000);
+        });
     }
 }

@@ -50,23 +50,30 @@ public class FFmpegUtils {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int frame = -1;
-                boolean started = false;
+                int frame = -1;// 当前帧数
+                boolean isStart = false;// 是否已开始
                 while (frame != 0) {
                     int frameTemp = FFmpegJni.getProgress();
-                    int progress;
                     if (frameTemp > 0) {
-                        started = true;
+                        isStart = true;
                     }
-                    if (started) {
+                    if (isStart) {
                         frame = frameTemp;
-                        progress = (int) Math.ceil(frame * 100.0f / (info.fps * info.duration / 1000.0f));
-                        double speed = FFmpegJni.getSpeed();
+
+                        // 计算当前进度
+                        int progress = (int) Math.ceil(frame * 100.0f / (info.fps * info.duration / 1000.0f));
+                        if (progress > 100 || progress == 0) {
+                            progress = 100;
+                        }
+
+                        // 计算剩余时间
                         long timeRemaining = 0;
+                        double speed = FFmpegJni.getSpeed();
                         if (speed > 0) {
                             timeRemaining = (long) (info.duration * (1 - progress / 100.0) / speed);
                         }
-                        listener.onProgressUpdate(progress, timeRemaining);
+
+                        listener.onProgress(progress, timeRemaining);
                     }
                     try {
                         Thread.sleep(500);
@@ -74,6 +81,8 @@ public class FFmpegUtils {
                         e.printStackTrace();
                     }
                 }
+
+                listener.onSuccess();
             }
         }).start();
     }

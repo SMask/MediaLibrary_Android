@@ -12,7 +12,14 @@ public abstract class FFmpegProgressListener {
      * @param progress      progress
      * @param timeRemaining 剩余时间
      */
-    public void onProgressUpdate(int progress, long timeRemaining) {
+    public void onProgress(int progress, long timeRemaining) {
+
+    }
+
+    /**
+     * 成功
+     */
+    public void onSuccess() {
 
     }
 
