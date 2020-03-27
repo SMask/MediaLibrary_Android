@@ -6,13 +6,86 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <EditText
+        android:id="@+id/edt_startX"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="StartX"
+        android:inputType="number"
+        android:text="0"
+        app:layout_constraintEnd_toStartOf="@+id/edt_startY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_startY"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="StartY"
+        android:inputType="number"
+        android:text="0"
+        app:layout_constraintEnd_toStartOf="@+id/edt_width"
+        app:layout_constraintStart_toEndOf="@+id/edt_startX"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_width"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Width"
+        android:inputType="number"
+        android:text="100"
+        app:layout_constraintEnd_toStartOf="@+id/edt_height"
+        app:layout_constraintStart_toEndOf="@+id/edt_startY"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_height"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Height"
+        android:inputType="number"
+        android:text="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edt_width"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_crop_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="开始裁切"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_startX" />
+
+    <TextView
+        android:id="@+id/tv_source_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_crop_start"
+        tools:text="Source Info" />
+
+    <TextView
+        android:id="@+id/tv_target_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_source_info"
+        tools:text="Target Info" />
+
+    <TextView
+        android:id="@+id/tv_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_target_info"
+        tools:text="Progress" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
