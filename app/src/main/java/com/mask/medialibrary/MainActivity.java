@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         targetFile = new File(dirFile, FileUtils.getDateName("FFmpeg") + ".mp4");
 
         sourceInfo = FFmpegUtils.getMediaInfo(sourceFile.getAbsolutePath());
-        tv_source_info.setText(getMediaInfo(sourceInfo, sourceFile));
+        tv_source_info.setText("Source: " + getMediaInfo(sourceInfo, sourceFile));
     }
 
     private void setListener() {
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 btn_crop_start.setEnabled(true);
                 targetInfo = FFmpegUtils.getMediaInfo(targetFile.getAbsolutePath());
-                tv_target_info.setText(getMediaInfo(targetInfo, targetFile));
+                tv_target_info.setText("Target: " + getMediaInfo(targetInfo, targetFile));
             }
         }, 1000);
     }
