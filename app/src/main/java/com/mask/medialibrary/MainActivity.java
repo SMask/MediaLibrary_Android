@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         final File dirFile = FileUtils.getCacheMovieDir(this);
         boolean mkdirs = dirFile.mkdirs();
         // 创建保存文件
-        sourceFile = new File(dirFile, "MediaRecorder_20200323_181233730.mp4");
+        sourceFile = new File(dirFile, "MediaRecorder_20200327_144432966.mp4");
         targetFile = new File(dirFile, FileUtils.getDateName("FFmpeg") + ".mp4");
 
         sourceInfo = FFmpegUtils.getMediaInfo(sourceFile.getAbsolutePath());
