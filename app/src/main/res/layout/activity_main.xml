@@ -78,14 +78,22 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_source_info"
         tools:text="Target Info" />
 
-    <TextView
-        android:id="@+id/tv_progress"
+    <ScrollView
+        android:id="@+id/sv_progress"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_target_info"
-        tools:text="Progress" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_target_info">
+
+        <TextView
+            android:id="@+id/tv_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            tools:text="Progress" />
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
