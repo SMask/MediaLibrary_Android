@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_progress;
     private TextView tv_target_info;
 
+    private File dirFile;
     private File sourceFile;
     private File targetFile;
 
@@ -54,11 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         // 创建保存路径
-        final File dirFile = FileUtils.getCacheMovieDir(this);
+        dirFile = FileUtils.getCacheMovieDir(this);
         boolean mkdirs = dirFile.mkdirs();
-        // 创建保存文件
+
         sourceFile = new File(dirFile, "MediaRecorder_20200327_144432966.mp4");
-        targetFile = new File(dirFile, FileUtils.getDateName("FFmpeg") + ".mp4");
 
         sourceInfo = FFmpegUtils.getMediaInfo(sourceFile.getAbsolutePath());
         tv_source_info.setText("Source: " + getMediaInfo(sourceInfo, sourceFile));
@@ -68,7 +68,12 @@ public class MainActivity extends AppCompatActivity {
         btn_crop_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                targetFile = new File(dirFile, FileUtils.getDateName("FFmpeg") + ".mp4");
+                tv_target_info.setText(null);
+                tv_progress.setText(null);
+
                 btn_crop_start.setEnabled(false);
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
